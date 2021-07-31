@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Product_Store
@@ -19,23 +20,35 @@ namespace Product_Store
             products.Add(product);
         }
 
-        public void display()
+        public void displayAll()
         {
-            foreach (Product p in products)
-            {
-                Console.WriteLine("-------------");
-
-                Console.WriteLine("id : " + p.id);
-                Console.WriteLine("Name : " + p.name);
-                Console.WriteLine("price: " + p.price);
-
-                Console.WriteLine("-------------");
-            }
+            products.ForEach(p => display(p));
         }
 
-        public void sortList()
-        {
+        public void display(Product p) {
+            Console.WriteLine("-------------");
 
+            Console.WriteLine("id : " + p.id);
+            Console.WriteLine("Name : " + p.name);
+            Console.WriteLine("price: " + p.price);
+
+            Console.WriteLine("-------------");
+        }
+
+        public Product search(String name)
+        {
+            return products.SingleOrDefault(p => p.name == name);
+        }
+
+        public void sort()
+        {
+            products.Sort((p1, p2) => p1.id.CompareTo(p2.id));
+        }
+
+
+        public void deleteItem(int index)
+        {
+            products.RemoveAt(index);
         }
     }
 }
